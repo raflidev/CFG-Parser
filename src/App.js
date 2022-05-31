@@ -22,23 +22,20 @@ function App() {
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Verba</div>
               <ol className="ml-6 capitalize list-disc">
-                <li>anjeun = kamu</li>
-                <li>abdi = saya</li>
-                <li>kantong = tas</li>
-                <li>katel = kuali</li>
-                <li>beas = beras</li>
-                <li>angklung = angklung</li>
+                <li>ameng = main</li>
+                <li>nganjuk = memimjam</li>
+                <li>ngumbah = nyuci</li>
               </ol>
             </div>
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Nomina</div>
               <ol className="ml-6 capitalize list-disc">
-                <li>ngananjuk = memimjam</li>
-                <li>ngadangu = mendengar</li>
-                <li>newak = tangkap</li>
-                <li>neunggeul = pukul</li>
-                <li>ngumbah = nyuci</li>
-                <li>ameng = main</li>
+                <li>anjeun = kamu</li>
+                <li>abdi = saya</li>
+                <li>kantong = tas</li>
+                <li>kaleci = kelereng</li>
+                <li>beas = beras</li>
+                <li>angklung = angklung</li>
               </ol>
             </div>
             <div className="bg-pinkbg p-3 rounded-md">
@@ -51,7 +48,7 @@ function App() {
           </div>
           { team === true &&
           <div className="fixed bottom-8 right-32">
-            <div className="bg-pink transition ease-in-out delay-150 text-pinkbg p-4 rounded">
+            <div className="bg-pink  text-pinkbg p-4 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl">
               <p>Muhammad Rafli Ramadhan - 1301200204</p>
               <p>Rahusien Salim - 1301201431</p>
               <p>Shafa Diva Syahira - 1301200157</p>

@@ -14,7 +14,7 @@ function App() {
               <input type="text" className="w-full rounded px-3 py-2" placeholder="Mangga nyerat CFG anjeun" />
             </div>
             <div className="w-full lg:w-2/12">
-              <button className="bg-pink w-full lg:w-fit text-black px-4 py-2 rounded-md font-bold hover:bg-pinkbg hover:text-pink">Submit</button>
+              <button className="bg-pink w-full text-black px-4 py-2 rounded-md font-bold hover:bg-pinkbg hover:text-pink">Submit</button>
             </div>  
           </div>
 

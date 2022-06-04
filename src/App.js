@@ -2,6 +2,27 @@ import { useState } from "react";
 
 function App() {
   const [team, setTeam] = useState(false);
+  const [parser, setParser] = useState("");
+  const [showDiv, setShowDiv] = useState(false);
+  const [result, setResult] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(parser.split(" "));
+    if(parser !== 'a') {
+      console.log("pentol");
+      setResult(false);
+    }else{
+      console.log("bagus");
+      setResult(true);
+    }
+    setShowDiv(true);
+    setTimeout(() => {
+      setShowDiv(false)
+      }, 2000
+    );
+  }
+
   return (
     <div className="bg-black h-screen text-pink font-poppins">
       <div className="flex h-screen">
@@ -9,14 +30,24 @@ function App() {
           <div className="text-xl font-bold text-center"> 
             CFG PARSER - BAHASA SUNDA
           </div>
-          <div className="flex-col lg:flex lg:flex-row space-x-0 space-y-5 lg:space-y-0 lg:space-x-4">
+          { showDiv === true && result === false &&
+          <div className="bg-pinkbg text-pink rounded p-3">
+            Format anda salah
+          </div>
+          }
+          { showDiv === true && result === true &&
+          <div className="bg-green text-black rounded p-3">
+            Format anda benar
+          </div>
+          }
+          <form onSubmit={handleSubmit} className="flex-col lg:flex lg:flex-row space-x-0 space-y-5 lg:space-y-0 lg:space-x-4">
             <div className="w-full lg:w-10/12">
-              <input type="text" className="w-full rounded px-3 py-2" placeholder="Mangga nyerat CFG anjeun" />
+              <input type="text" value={parser} onChange={(e) => setParser(e.target.value)} className="w-full rounded px-3 py-2" placeholder="Mangga nyerat CFG anjeun" />
             </div>
             <div className="w-full lg:w-2/12">
-              <button className="bg-pink w-full text-black px-4 py-2 rounded-md font-bold hover:bg-pinkbg hover:text-pink">Submit</button>
+              <button type="submit" className="bg-pink w-full text-black px-4 py-2 rounded-md font-bold hover:bg-pinkbg hover:text-pink">Submit</button>
             </div>  
-          </div>
+          </form>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="bg-pinkbg p-3 rounded-md">

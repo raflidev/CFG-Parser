@@ -36,6 +36,7 @@ function App() {
     transisi_list[state_list[i]][' '] = "error"
   }
 
+  transisi_list['q0'][' '] = 'q0'
   transisi_list['q0']['a'] = 'q1'
   transisi_list['q0']['k'] = 'q14'
   transisi_list['q0']['b'] = 'q24'
@@ -87,9 +88,11 @@ function App() {
   transisi_list['q38']['b'] = 'q39'
   transisi_list['q39']['a'] = 'q40'
   transisi_list['q40']['h'] = 'q41'
-  transisi_list['q0'][' '] = 'q0'
-  transisi_list['q41'][' '] = 'q0'
-  transisi_list['q0']['#'] = 'accept'
+  transisi_list['q41'][' '] = 'q41'
+  transisi_list['q41']['a'] = 'q1'
+  transisi_list['q41']['k'] = 'q14'
+  transisi_list['q41']['b'] = 'q24'
+  transisi_list['q41']['n'] = 'q31'
   transisi_list['q41']['#'] = 'accept'
 
   

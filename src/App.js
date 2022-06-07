@@ -197,7 +197,7 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Verba</div>
-              <ol className="ml-6 capitalize list-disc">
+              <ol className="ml-6 lowercase list-disc">
                 <li>ameng = main</li>
                 <li>nganjuk = memimjam</li>
                 <li>ngumbah = nyuci</li>
@@ -205,7 +205,7 @@ function App() {
             </div>
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Nomina</div>
-              <ol className="ml-6 capitalize list-disc">
+              <ol className="ml-6 lowercase list-disc">
                 <li>anjeun = kamu</li>
                 <li>abdi = saya</li>
                 <li>kantong = tas</li>
@@ -216,7 +216,7 @@ function App() {
             </div>
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Adjektif</div>
-              <ol className="ml-6 capitalize list-disc">
+              <ol className="ml-6 lowercase list-disc">
                 <li>beureum = merah</li>
                 <li>badag = besar</li>
               </ol>

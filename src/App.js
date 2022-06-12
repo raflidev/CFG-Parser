@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 function App() {
   const [team, setTeam] = useState(false);
   var [parser, setParser] = useState("");
@@ -120,18 +121,182 @@ function App() {
     if (state === 'accept'){
       console.log('semua token di input: ', parser, ', valid');
     }
-    if(state !== 'accept') {
-      console.log("pentol");
-      setResult(false);
-    }else{
-      console.log("bagus");
-      setResult(true);
-    }
-    setShowDiv(true);
+    // if(state !== 'accept') {
+    //   setResult(false);
+    // }else{
+    //   setResult(true);
+    // }
+    // setShowDiv(true);
+    // setTimeout(() => {
+    //   setShowDiv(false)
+    //   }, 2000
+    // );
+
+    if(state === 'accept') {
+      var tokens = parser.split(" ")
+      tokens.push('EOS')
+
+      const non_terminal = ['S', 'SB', 'VB', 'OB', 'NN', 'AD']
+      const terminal = ['ameng', 'nganjuk', 'ngumbah', 'anjeun', 'abdi', 'kantong', 'kaleci', 'beas', 'angklung', 'beureum', 'badag']
+
+      var parseTable = {}
+
+      parseTable['S'] = {
+        'anjeun': ['SB', 'VB', 'OB'],
+        'abdi': ['SB', 'VB', 'OB'],
+        'kantong': ['error'],
+        'kaleci': ['error'],
+        'beas': ['error'],
+        'ameng': ['error'],
+        'angklung': ['error'],
+        'beureum': ['error'],
+        'nganjuk': ['error'],
+        'ngumbah': ['error'],
+        'badag': ['error'],
+        'EOS': ['error'],
+      }
+
+      parseTable['SB'] = {
+        'anjeun': ['anjeun'],
+        'abdi': ['abdi'],
+        'kantong': ['error'],
+        'kaleci': ['error'],
+        'beas': ['error'],
+        'angklung': ['error'],
+        'ameng': ['error'],
+        'beureum': ['error'],
+        'nganjuk': ['error'],
+        'ngumbah': ['error'],
+        'badag': ['error'],
+        'EOS': ['error'],
+      }
+      
+      parseTable['VB'] = {
+        'ameng': ['ameng'],
+        'nganjuk': ['nganjuk'],
+        'ngumbah': ['ngumbah'],
+        'anjeun': ['error'],
+        'abdi': ['error'],
+        'kantong': ['error'],
+        'kaleci': ['error'],
+        'beas': ['error'],
+        'angklung': ['error'],
+        'beureum': ['error'],
+        'badag': ['error'],
+        'EOS': ['error'],
+      }
+
+      parseTable['NN'] = {
+        'kantong': ['kantong'],
+        'kaleci': ['kaleci'],
+        'beas': ['beas'],
+        'angklung': ['angklung'],
+        'anjeun': ['error'],
+        'abdi': ['error'],
+        'nganjuk': ['error'],
+        'ameng': ['error'],
+        'ngumbah': ['error'],
+        'beureum': ['error'],
+        'badag': ['error'],
+        'EOS': ['error'],
+      }
+
+      parseTable['OB'] = {
+        'kantong': ['NN','AD'],
+        'kaleci': ['NN','AD'],
+        'beas': ['NN','AD'],
+        'angklung': ['NN','AD'],
+        'anjeun': ['error'],
+        'abdi': ['error'],
+        'nganjuk': ['error'],
+        'ngumbah': ['error'],
+        'beureum': ['error'],
+        'badag': ['error'],
+        'EOS': ['accept'],
+      }
+
+      parseTable['AD'] = {
+        'beureum': ['beureum'],
+        'badag': ['badag'],
+        'anjeun': ['error'],
+        'abdi': ['error'],
+        'kantong': ['error'],
+        'kaleci': ['error'],
+        'beas': ['error'],
+        'angklung': ['error'],
+        'ameng': ['error'],
+        'nganjuk': ['error'],
+        'ngumbah': ['error'],
+        'EOS': ['accept'],
+      }
+
+      var stack = []
+      stack.push('#')
+      stack.push('S')
+
+      var idx_token = 0
+      var symbol = tokens[idx_token]
+
+      while(stack.length > 0) {
+        var top = stack[stack.length - 1]
+          console.log('top = ', top)
+          console.log('symbol = ', symbol)
+          if (terminal.includes(top)) {
+              console.log('top adalah simbol terminal')
+              console.log('top = ', top)
+              if (top === symbol) {
+                  stack.pop()
+                  idx_token += 1
+                  symbol = tokens[idx_token]
+                  
+              } else {
+                  console.log('error')
+                  break
+              }
+          } else if (non_terminal.includes(top)) {
+              console.log('top adalah simbol non terminal')
+              if (parseTable[top][symbol] &&  parseTable[top][symbol][0] !== 'error') {
+                  stack.pop()
+                  var symbols_to_be_pushed = parseTable[top][symbol]
+                  for (var i = symbols_to_be_pushed.length - 1; i >= 0; i--) {
+                      if(symbols_to_be_pushed[i] !== 'accept') {
+                        stack.push(symbols_to_be_pushed[i])
+                      }
+                  }
+              } else {
+                  console.log('error')
+                  break
+              }
+          } else {
+            if (symbol === 'EOS') {
+              console.log("pager");
+              console.log('stack = ', stack)
+              stack.pop()
+            }else{
+              console.log('error')
+            }
+              break
+          }
+          console.log('stack = ', stack)
+          console.log('\n')
+      }
+      console.log('\n')
+      if (symbol === 'EOS' && stack.length === 0) {
+          console.log('input string', parser, 'diterima sesuai grammar')
+          setResult(true);
+        } else {
+          console.log('input string', parser, 'tidak diterima sesuai grammar')
+          setResult(false);
+      }
+    } else {
+        console.log('format sentence tidak sesuai')
+        setResult(false);
+    } 
     setTimeout(() => {
       setShowDiv(false)
       }, 2000
     );
+    setShowDiv(true);
   }
 
   return (
@@ -197,7 +362,14 @@ function App() {
               </svg>
             }
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <div className="bg-pinkbg p-3 rounded-md">
+              <div className="text-center font-bold mb-4">Subjek</div>
+              <ol className="ml-6 lowercase list-disc">
+                <li>anjeun = kamu</li>
+                <li>abdi = saya</li>
+              </ol>
+            </div>
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Verba</div>
               <ol className="ml-6 lowercase list-disc">
@@ -209,8 +381,6 @@ function App() {
             <div className="bg-pinkbg p-3 rounded-md">
               <div className="text-center font-bold mb-4">Nomina</div>
               <ol className="ml-6 lowercase list-disc">
-                <li>anjeun = kamu</li>
-                <li>abdi = saya</li>
                 <li>kantong = tas</li>
                 <li>kaleci = kelereng</li>
                 <li>beas = beras</li>

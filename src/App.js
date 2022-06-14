@@ -6,6 +6,7 @@ function App() {
   const [showDiv, setShowDiv] = useState(false);
   const [result, setResult] = useState(false);
   const [rule, setRule] = useState(false);
+  const [message, setMessage] = useState("");
 
   // inisialisasi
   const state_list = [
@@ -99,7 +100,6 @@ function App() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(parser.split(" "));
     var idx_char = 0
     var state = 'q0'
     var current_token = ''
@@ -121,16 +121,6 @@ function App() {
     if (state === 'accept'){
       console.log('semua token di input: ', parser, ', valid');
     }
-    // if(state !== 'accept') {
-    //   setResult(false);
-    // }else{
-    //   setResult(true);
-    // }
-    // setShowDiv(true);
-    // setTimeout(() => {
-    //   setShowDiv(false)
-    //   }, 2000
-    // );
 
     if(state === 'accept') {
       var tokens = parser.split(" ")
@@ -282,14 +272,17 @@ function App() {
       }
       console.log('\n')
       if (symbol === 'EOS' && stack.length === 0) {
-          console.log('input string', parser, 'diterima sesuai grammar')
+          console.log(`input string "${parser}" diterima sesuai grammar`)
+          setMessage(`input string "${parser}" diterima sesuai grammar`);
           setResult(true);
         } else {
           console.log('input string', parser, 'tidak diterima sesuai grammar')
+          setMessage(`input string "${parser}" tidak diterima sesuai grammar`);
           setResult(false);
-      }
-    } else {
+        }
+      } else {
         console.log('format sentence tidak sesuai')
+        setMessage('format sentence tidak sesuai');
         setResult(false);
     } 
     setTimeout(() => {
@@ -308,12 +301,12 @@ function App() {
           </div>
           { showDiv === true && result === false &&
           <div className="bg-pinkbg text-pink rounded p-3">
-            Format anda salah
+            {message}
           </div>
           }
           { showDiv === true && result === true &&
           <div className="bg-green text-black rounded p-3">
-            Format anda benar
+            {message}
           </div>
           }
           <form onSubmit={handleSubmit} className="flex-col lg:flex lg:flex-row space-x-0 space-y-5 lg:space-y-0 lg:space-x-4">
